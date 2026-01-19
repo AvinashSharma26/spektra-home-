@@ -12,7 +12,6 @@ import Stats from './components/Stats';
 import CloudAdvisor from './components/CloudAdvisor';
 import Footer from './components/Footer';
 import Newsletter from './components/Newsletter';
-import ContactSection from './components/ContactSection';
 import BackToTop from './components/BackToTop';
 
 const App: React.FC = () => {
@@ -41,8 +40,6 @@ const App: React.FC = () => {
         
         <Newsletter />
         
-        <ContactSection />
-
         {/* Global CTA Section */}
         <section className="py-24 bg-[#050505] relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-light via-brand to-brand-dark"></div>
