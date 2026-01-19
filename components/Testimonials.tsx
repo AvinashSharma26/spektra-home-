@@ -7,205 +7,140 @@ interface Testimonial {
   author: string;
   role: string;
   company: string;
-  avatar: string;
+  bgImage: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: '1',
     category: 'SaaSify',
-    quote: "SaaSify transformed our complex Azure infrastructure into a streamlined marketplace offering in weeks, not months. The automated billing is a game-changer.",
+    quote: "SaaSify transformed our complex Azure infrastructure into a streamlined marketplace offering in weeks, not months. The automated billing is a game-changer for our scale.",
     author: "Sarah Chen",
-    role: "VP of Engineering",
-    company: "DataStream AI",
-    avatar: "https://i.pravatar.cc/150?u=sarah"
+    role: "VP of Engineering, DataStream AI",
+    company: "DATASTREAM",
+    bgImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: '2',
-    category: 'SaaSify',
-    quote: "The deep integration with Microsoft Commercial Marketplace allowed us to scale our co-sell opportunities globally. Spektra's expertise is unmatched.",
-    author: "Marcus Thorne",
-    role: "Product Director",
-    company: "CloudCore Systems",
-    avatar: "https://i.pravatar.cc/150?u=marcus"
+    category: 'CloudLabs',
+    quote: "Moving to CloudLabs helped us alleviate multiple pain points in student provisioning. Without it, we wouldn't be where we are today in our global training reach.",
+    author: "Gabriel Sandoval",
+    role: "Cloud Platform Sr. Manager, Spektra EDU",
+    company: "SPEKTRA EDU",
+    bgImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200"
   },
   {
     id: '3',
-    category: 'CloudLabs',
-    quote: "We've delivered over 50,000 hands-on labs globally with CloudLabs. The platform's reliability and low latency are critical for our student success.",
-    author: "Dr. Elena Rodriguez",
-    role: "Head of Learning",
-    company: "Global Tech University",
-    avatar: "https://i.pravatar.cc/150?u=elena"
-  },
-  {
-    id: '4',
-    category: 'CloudLabs',
-    quote: "Our sales engineering team uses CloudLabs for every major demo. Being able to spin up complex environments instantly has shortened our sales cycle by 30%.",
-    author: "James Wilson",
-    role: "Global Sales Enablement",
-    company: "Nexus Security",
-    avatar: "https://i.pravatar.cc/150?u=james"
-  },
-  {
-    id: '5',
     category: 'CSP',
-    quote: "CSP Control Center eliminated our billing reconciliation headaches. We now have 100% accuracy across our entire Microsoft Cloud portfolio.",
-    author: "Linda Zhao",
-    role: "Operations Manager",
-    company: "Pacific Cloud Partners",
-    avatar: "https://i.pravatar.cc/150?u=linda"
-  },
-  {
-    id: '6',
-    category: 'CSP',
-    quote: "The autonomous governance features have saved our team hundreds of hours per month. It's the most robust CSP platform we've tested.",
-    author: "Robert Miller",
-    role: "CTO",
-    company: "Skyline Managed Services",
-    avatar: "https://i.pravatar.cc/150?u=robert"
+    quote: "Our partnership with Spektra has been a strong one. The CSP Control Center provides the transparency and automation we needed to manage our growing portfolio efficiently.",
+    author: "Marcus Thorne",
+    role: "Director of Operations, CloudCore",
+    company: "CLOUDCORE",
+    bgImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200"
   }
 ];
 
 const Testimonials: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'SaaSify' | 'CloudLabs' | 'CSP'>('SaaSify');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  const filteredTestimonials = testimonials.filter(t => t.category === activeTab);
-  const itemsToShow = isMobile ? 1 : 2;
-
-  // Handle window resize for responsive display
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    const timer = setInterval(() => {
+      handleNext();
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [currentIndex]);
 
-  // Reset carousel index when tab changes
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [activeTab]);
-
-  const maxIndex = Math.max(0, filteredTestimonials.length - itemsToShow);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  const handleNext = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setIsAnimating(false);
+    }, 500);
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
-  };
+  const current = testimonials[currentIndex];
 
   return (
-    <section className="bg-slate-50 py-24 border-t border-slate-200">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+    <section className="bg-[#0f1115] py-24 border-t border-white/5 overflow-hidden relative">
+      {/* Decorative Background Elements for Glass Effect */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-brand/20 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-brand-light/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="mb-16">
           <h2 className="text-sm font-black tracking-[0.4em] text-brand uppercase mb-4">Customer Success</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">Voices of Innovation</h3>
+          <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Redefining the Enterprise Experience</h3>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex p-1 bg-slate-200/50 rounded-xl border border-slate-200">
-            {(['SaaSify', 'CloudLabs', 'CSP'] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-8 py-3 rounded-lg text-sm font-bold tracking-wide transition-all ${
-                  activeTab === tab
-                    ? 'bg-white text-brand shadow-md border border-slate-100'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                {tab === 'CSP' ? 'CSP Center' : tab}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Carousel Slider */}
-        <div className="relative max-w-6xl mx-auto overflow-hidden">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out" 
-            style={{ transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)` }}
-          >
-            {filteredTestimonials.map((t) => (
-              <div key={t.id} className="w-full md:w-1/2 flex-shrink-0 px-4">
-                <div className="bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-xl relative overflow-hidden h-full flex flex-col justify-between">
-                  {/* Decorative Background Icon */}
-                  <svg className="absolute top-6 right-6 w-24 h-24 text-brand/5 -rotate-12 pointer-events-none" fill="currentColor" viewBox="0 0 32 32">
-                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                  </svg>
-                  
-                  <div className="relative z-10 flex-grow">
-                    <p className="text-lg md:text-xl text-slate-800 leading-relaxed font-medium italic mb-8">
-                      "{t.quote}"
-                    </p>
-                  </div>
-                  <div className="relative z-10 flex items-center space-x-4 mt-auto">
-                    <img 
-                      src={t.avatar} 
-                      alt={t.author} 
-                      className="w-12 h-12 rounded-full border-2 border-slate-50 shadow-sm"
-                    />
-                    <div>
-                      <h4 className="text-slate-900 font-black text-base leading-tight">{t.author}</h4>
-                      <p className="text-brand font-bold text-xs">{t.role}</p>
-                      <p className="text-slate-500 text-[10px] uppercase tracking-widest font-bold">{t.company}</p>
-                    </div>
-                  </div>
+        <div className="relative max-w-6xl mx-auto">
+          {/* Main Testimonial Card with Glassy Background */}
+          <div className={`flex flex-col md:flex-row bg-white/[0.03] backdrop-blur-2xl rounded-sm overflow-hidden border border-white/10 shadow-2xl transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
+            
+            {/* Left side: Image with Logo Overlay */}
+            <div className="md:w-[45%] h-[300px] md:h-[500px] relative">
+              <img 
+                src={current.bgImage} 
+                alt="Workspace" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/30"></div>
+              {/* Logo Box Overlay - Extra Glassy */}
+              <div className="absolute inset-0 flex items-center justify-center p-4">
+                <div className="bg-white/90 backdrop-blur-md p-6 md:p-8 border border-white/40 shadow-2xl flex flex-col items-center max-w-full">
+                   <div className="text-brand mb-2">
+                     <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                     </svg>
+                   </div>
+                   <div className="text-2xl font-black text-slate-900 tracking-tighter uppercase text-center">{current.company}</div>
+                   <div className="w-full h-px bg-slate-200 my-2"></div>
+                   <div className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.3em] text-center">Strategic Platform Partner</div>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Right side: Quote Content with subtle glass gradient */}
+            <div className="md:w-[55%] p-10 md:p-16 flex flex-col justify-center relative bg-gradient-to-br from-white/[0.02] to-transparent">
+              <div className="mb-8">
+                <svg className="w-12 h-12 text-brand mb-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C20.1216 16 21.017 16.8954 21.017 18V21C21.017 22.1046 20.1216 23 19.017 23H16.017C14.9124 23 14.017 22.1046 14.017 21ZM14.017 12V9C14.017 7.89543 14.9124 7 16.017 7H19.017C20.1216 7 21.017 7.89543 21.017 9V12C21.017 13.1046 20.1216 14 19.017 14H16.017C14.9124 14 14.017 13.1046 14.017 12ZM3.0166 21V18C3.0166 16.8954 3.91203 16 5.0166 16H8.0166C9.12117 16 10.0166 16.8954 10.0166 18V21C10.0166 22.1046 9.12117 23 8.0166 23H5.0166C3.91203 23 3.0166 22.1046 3.0166 21ZM3.0166 12V9C3.0166 7.89543 3.91203 7 5.0166 7H8.0166C9.12117 7 10.0166 7.89543 10.0166 9V12C10.0166 13.1046 9.12117 14 8.0166 14H5.0166C3.91203 14 3.0166 13.1046 3.0166 12Z" />
+                </svg>
+                <p className="text-xl md:text-2xl text-slate-200 leading-relaxed font-medium mb-10">
+                  {current.quote}
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-white font-bold text-lg mb-1">{current.author}</h4>
+                <p className="text-slate-500 font-medium text-sm">{current.role}</p>
+              </div>
+            </div>
           </div>
 
-          {/* Navigation Controls */}
-          {filteredTestimonials.length > itemsToShow && (
-            <>
-              <button 
-                onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 w-10 h-10 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center text-slate-400 hover:text-brand hover:scale-110 transition-all z-20 group"
-              >
-                <svg className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button 
-                onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 w-10 h-10 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center text-slate-400 hover:text-brand hover:scale-110 transition-all z-20 group"
-              >
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Pagination Dots */}
-        {filteredTestimonials.length > itemsToShow && (
-          <div className="flex justify-center space-x-2 mt-12">
-            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+          {/* Indicators / Pagination */}
+          <div className="mt-8 flex items-center space-x-2">
+            {testimonials.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`h-1.5 transition-all rounded-full ${
-                  currentIndex === idx ? 'w-8 bg-brand' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                className={`transition-all duration-300 rounded-full h-1.5 ${
+                  currentIndex === idx ? 'w-10 bg-brand' : 'w-2 bg-slate-700 hover:bg-slate-500'
                 }`}
+                aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
           </div>
-        )}
-        
-        {/* Verification Tag */}
+        </div>
+
+        {/* Verification Footer */}
         <div className="mt-16 text-center">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center justify-center">
+          <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest flex items-center justify-center">
             <svg className="w-3 h-3 mr-2 text-brand" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            Verified Customer Case Studies Available on Request
+            Global Enterprise Validation
           </p>
         </div>
       </div>
