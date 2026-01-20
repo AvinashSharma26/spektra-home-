@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import AIWorldSection from './components/AIWorldSection';
 import ServiceGrid from './components/ServiceGrid';
 import LatestReleases from './components/LatestReleases';
 import DataPrivacySection from './components/DataPrivacySection';
@@ -21,6 +22,8 @@ const App: React.FC = () => {
       
       <main className="flex-grow">
         <Hero />
+        
+        <AIWorldSection />
         
         <Stats />
         

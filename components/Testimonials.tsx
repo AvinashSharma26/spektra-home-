@@ -63,20 +63,16 @@ const Testimonials: React.FC = () => {
   const current = testimonials[currentIndex];
 
   return (
-    <section className="bg-[#0f1115] py-24 border-t border-white/5 overflow-hidden relative">
-      {/* Decorative Background Elements for Glass Effect */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-brand/20 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-brand-light/10 blur-[100px] rounded-full pointer-events-none"></div>
-
-      <div className="container mx-auto px-6 relative z-10">
+    <section className="bg-[#0f1115] py-24 border-t border-white/5 overflow-hidden">
+      <div className="container mx-auto px-6">
         <div className="mb-16">
           <h2 className="text-sm font-black tracking-[0.4em] text-brand uppercase mb-4">Customer Success</h2>
           <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Redefining the Enterprise Experience</h3>
         </div>
 
         <div className="relative max-w-6xl mx-auto">
-          {/* Main Testimonial Card with Glassy Background */}
-          <div className={`flex flex-col md:flex-row bg-white/[0.03] backdrop-blur-2xl rounded-sm overflow-hidden border border-white/10 shadow-2xl transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
+          {/* Main Testimonial Card */}
+          <div className={`flex flex-col md:flex-row bg-[#1a1c23] rounded-sm overflow-hidden border border-white/5 shadow-2xl transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
             
             {/* Left side: Image with Logo Overlay */}
             <div className="md:w-[45%] h-[300px] md:h-[500px] relative">
@@ -86,23 +82,23 @@ const Testimonials: React.FC = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/30"></div>
-              {/* Logo Box Overlay - Extra Glassy */}
-              <div className="absolute inset-0 flex items-center justify-center p-4">
-                <div className="bg-white/90 backdrop-blur-md p-6 md:p-8 border border-white/40 shadow-2xl flex flex-col items-center max-w-full">
+              {/* Logo Box Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-white/95 backdrop-blur-sm p-6 md:p-8 border border-white/20 shadow-2xl flex flex-col items-center">
                    <div className="text-brand mb-2">
                      <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                      </svg>
                    </div>
-                   <div className="text-2xl font-black text-slate-900 tracking-tighter uppercase text-center">{current.company}</div>
+                   <div className="text-2xl font-black text-slate-900 tracking-tighter uppercase">{current.company}</div>
                    <div className="w-full h-px bg-slate-200 my-2"></div>
-                   <div className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.3em] text-center">Strategic Platform Partner</div>
+                   <div className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.3em]">Strategic Platform Partner</div>
                 </div>
               </div>
             </div>
 
-            {/* Right side: Quote Content with subtle glass gradient */}
-            <div className="md:w-[55%] p-10 md:p-16 flex flex-col justify-center relative bg-gradient-to-br from-white/[0.02] to-transparent">
+            {/* Right side: Quote Content */}
+            <div className="md:w-[55%] p-10 md:p-16 flex flex-col justify-center relative bg-gradient-to-br from-[#1a1c23] to-[#12141a]">
               <div className="mb-8">
                 <svg className="w-12 h-12 text-brand mb-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C20.1216 16 21.017 16.8954 21.017 18V21C21.017 22.1046 20.1216 23 19.017 23H16.017C14.9124 23 14.017 22.1046 14.017 21ZM14.017 12V9C14.017 7.89543 14.9124 7 16.017 7H19.017C20.1216 7 21.017 7.89543 21.017 9V12C21.017 13.1046 20.1216 14 19.017 14H16.017C14.9124 14 14.017 13.1046 14.017 12ZM3.0166 21V18C3.0166 16.8954 3.91203 16 5.0166 16H8.0166C9.12117 16 10.0166 16.8954 10.0166 18V21C10.0166 22.1046 9.12117 23 8.0166 23H5.0166C3.91203 23 3.0166 22.1046 3.0166 21ZM3.0166 12V9C3.0166 7.89543 3.91203 7 5.0166 7H8.0166C9.12117 7 10.0166 7.89543 10.0166 9V12C10.0166 13.1046 9.12117 14 8.0166 14H5.0166C3.91203 14 3.0166 13.1046 3.0166 12Z" />
